@@ -1,0 +1,166 @@
+,Date,Day,Restaurant,Customer,Paying Orders
+637,11/15/2016,tue,chupenga,smava ks,17.0
+646,11/16/2016,wed,beets & roots,smava ks,19.0
+659,11/17/2016,thu,le bon,smava ks,15.0
+672,11/18/2016,fri,mezem,smava ks,10.0
+679,11/21/2016,mon,restaurant 38,smava ks,13.0
+687,11/22/2016,tue,koshary lux,smava ks,20.0
+699,11/23/2016,wed,chutnify,smava ks,22.0
+713,11/24/2016,thu,le bon,smava ks,17.0
+725,11/25/2016,fri,chupenga,smava ks,7.0
+736,11/28/2016,mon,coma,smava ks,11.0
+745,11/29/2016,tue,mezem,smava ks,21.0
+760,11/30/2016,wed,sam yuk gu,smava ks,20.0
+771,12/01/2016,thu,beets & roots,smava ks,12.0
+784,12/02/2016,fri,chupenga,smava ks,14.0
+799,12/05/2016,mon,mezem,smava ks,16.0
+808,12/06/2016,tue,le bon,smava ks,13.0
+821,12/07/2016,wed,beets & roots,smava ks,12.0
+834,12/08/2016,thu,chutnify,smava ks,12.0
+847,12/09/2016,fri,djimalaya,smava ks,11.0
+859,12/12/2016,mon,chupenga,smava ks,11.0
+869,12/13/2016,tue,koshary lux,smava ks,12.0
+883,12/14/2016,wed,djimalaya,smava ks,13.0
+899,12/15/2016,thu,mezem,smava ks,11.0
+913,12/16/2016,fri,beets & roots,smava ks,10.0
+926,12/19/2016,mon,grindhouse burgers,smava ks,14.0
+935,12/20/2016,tue,chutnify,smava ks,7.0
+944,12/21/2016,wed,chupenga,smava ks,9.0
+958,12/22/2016,thu,koshary lux,smava ks,11.0
+971,12/23/2016,fri,sam yuk gu,smava ks,8.0
+982,01/02/2017,mon,mezem,smava ks,11.0
+988,01/03/2017,tue,beets & roots,smava ks,15.0
+1000,01/04/2017,wed,le bon,smava ks,12.0
+1015,01/05/2017,thu,chutnify,smava ks,10.0
+1029,01/06/2017,fri,chupenga,smava ks,8.0
+1042,01/09/2017,mon,grindhouse burgers,smava ks,16.0
+1057,01/10/2017,tue,koshary lux,smava ks,22.0
+1077,01/11/2017,wed,restaurant 38,smava ks,19.0
+1095,01/12/2017,thu,rises delicacies,smava ks,21.0
+1113,01/13/2017,fri,salaid,smava ks,23.0
+1129,01/16/2017,mon,berlin burrito,smava ks,18.0
+1141,01/17/2017,tue,mezem,smava ks,16.0
+1158,01/18/2017,wed,grindhouse burgers,smava ks,25.0
+1174,01/19/2017,thu,sam yuk gu,smava ks,16.0
+1195,01/20/2017,fri,djimalaya,smava ks,21.0
+1212,01/23/2017,mon,chupenga,smava ks,10.0
+1226,01/24/2017,tue,salaid,smava ks,21.0
+1246,01/25/2017,wed,beets & roots,smava ks,17.0
+1263,01/26/2017,thu,chutnify,smava ks,15.0
+1285,01/27/2017,fri,coucou,smava ks,15.0
+1299,01/30/2017,mon,bichou,smava ks,14.0
+1311,01/31/2017,tue,koshary lux,smava ks,14.0
+1328,02/01/2017,wed,chupenga,smava ks,10.0
+1343,02/02/2017,thu,le bon,smava ks,12.0
+1362,02/03/2017,fri,chutnify,smava ks,8.0
+1379,02/06/2017,mon,bun bao,smava ks,27.0
+1393,02/07/2017,tue,djimalaya,smava ks,11.0
+1410,02/08/2017,wed,salaid,smava ks,19.0
+1426,02/09/2017,thu,hashi kitchen,smava ks,16.0
+1443,02/10/2017,fri,nil,smava ks,16.0
+1457,02/13/2017,mon,coucou,smava ks,13.0
+1470,02/14/2017,tue,son kitchen,smava ks,17.0
+1485,02/15/2017,wed,chutnify,smava ks,15.0
+1500,02/16/2017,thu,grindhouse burgers,smava ks,20.0
+1515,02/17/2017,fri,mezem,smava ks,9.0
+1530,02/20/2017,mon,salumeria rosa,smava ks,13.0
+1541,02/21/2017,tue,nil,smava ks,10.0
+1555,02/22/2017,wed,le bon,smava ks,12.0
+1573,02/23/2017,thu,eyal hageby,smava ks,13.0
+1590,02/24/2017,fri,hashi kitchen,smava ks,15.0
+1609,02/27/2017,mon,chutnify,smava ks,11.0
+1620,02/28/2017,tue,grindhouse burgers,smava ks,19.0
+1634,03/01/2017,wed,son kitchen,smava ks,20.0
+1653,03/02/2017,thu,chupenga,smava ks,10.0
+1668,03/03/2017,fri,salaid,smava ks,11.0
+1682,03/06/2017,mon,djimalaya,smava ks,11.0
+1694,03/07/2017,tue,berlin burrito,smava ks,20.0
+1709,03/08/2017,wed,nil,smava ks,21.0
+1725,03/09/2017,thu,sam yuk gu,smava ks,12.0
+1744,03/10/2017,fri,chutnify,smava ks,8.0
+1767,03/13/2017,mon,dinette bistro,smava ks,20.0
+1782,03/14/2017,tue,son kitchen,smava ks,17.0
+1798,03/15/2017,wed,eyal hageby,smava ks,15.0
+1815,03/16/2017,thu,royals & rice,smava ks,23.0
+1833,03/17/2017,fri,bichou,smava ks,16.0
+1846,03/20/2017,mon,grindhouse burgers,smava ks,15.0
+1864,03/21/2017,tue,maison han,smava ks,13.0
+1878,03/22/2017,wed,culivento,smava ks,12.0
+1895,03/23/2017,thu,le bon,smava ks,11.0
+1906,03/24/2017,fri,hashi kitchen,smava ks,21.0
+1928,03/27/2017,mon,nil,smava ks,22.0
+1940,03/28/2017,tue,berlin burrito,smava ks,22.0
+1952,03/29/2017,wed,koshary lux,smava ks,15.0
+1967,03/30/2017,thu,salaid,smava ks,18.0
+1978,03/31/2017,fri,son kitchen,smava ks,19.0
+1991,04/03/2017,mon,mezem,smava ks,12.0
+2004,04/04/2017,tue,zula hummus,smava ks,23.0
+2017,04/05/2017,wed,chupenga,smava ks,13.0
+2034,04/06/2017,thu,maison han,smava ks,21.0
+2049,04/07/2017,fri,grindhouse burgers,smava ks,17.0
+2064,04/10/2017,mon,salaid,smava ks,25.0
+2077,04/11/2017,tue,w der imbiss,smava ks,20.0
+2091,04/12/2017,wed,royals & rice,smava ks,22.0
+2107,04/13/2017,thu,nil,smava ks,25.0
+2120,04/18/2017,tue,berlin burrito,smava ks,22.0
+2132,04/19/2017,wed,chutnify,smava ks,16.0
+2150,04/20/2017,thu,hashi kitchen,smava ks,21.0
+2162,04/21/2017,fri,nil,smava ks,16.0
+2181,04/24/2017,mon,son kitchen,smava ks,22.0
+2194,04/25/2017,tue,chaiwallahs,smava ks,27.0
+2207,04/26/2017,wed,salaid,smava ks,20.0
+2223,04/27/2017,thu,le bon coin,smava ks,18.0
+2236,04/28/2017,fri,rises delicacies,smava ks,19.0
+2254,05/02/2017,tue,maison han,smava ks,14.0
+2270,05/03/2017,wed,chupenga,smava ks,12.0
+2290,05/04/2017,thu,grindhouse burgers,smava ks,15.0
+2308,05/05/2017,fri,yarok,smava ks,19.0
+2325,05/08/2017,mon,royals & rice,smava ks,14.0
+2336,05/09/2017,tue,w der imbiss,smava ks,20.0
+2352,05/10/2017,wed,chutnify,smava ks,16.0
+2374,05/11/2017,thu,sam yuk gu,smava ks,13.0
+2393,05/12/2017,fri,pizza nostra,smava ks,25.0
+2403,05/15/2017,mon,pasta deli,smava ks,18.0
+2418,05/16/2017,tue,nil,smava ks,23.0
+2436,05/17/2017,wed,hashi kitchen,smava ks,19.0
+2453,05/18/2017,thu,berlin burrito,smava ks,26.0
+2470,05/19/2017,fri,zula hummus,smava ks,22.0
+2485,05/22/2017,mon,coucou,smava ks,22.0
+2500,05/23/2017,tue,chaiwallahs,smava ks,23.0
+2515,05/24/2017,wed,son kitchen,smava ks,19.0
+2530,05/26/2017,fri,mezem,smava ks,9.0
+2543,05/29/2017,mon,the butcher,smava ks,15.0
+2557,05/30/2017,tue,chupenga,smava ks,15.0
+2575,05/31/2017,wed,pasta deli,smava ks,19.0
+2594,06/01/2017,thu,salaid,smava ks,25.0
+2600,06/01/2017,thu,salaid,smava ks,9.0
+2611,06/02/2017,fri,fatoush,smava ks,23.0
+2629,06/06/2017,tue,w der imbiss,smava ks,18.0
+2645,06/07/2017,wed,maison han,smava ks,20.0
+2664,06/08/2017,thu,grindhouse burgers,smava ks,15.0
+2682,06/09/2017,fri,berlin burrito,smava ks,22.0
+2698,06/12/2017,mon,yarok,smava ks,18.0
+2718,06/13/2017,tue,koshary lux,smava ks,17.0
+2737,06/14/2017,wed,chaiwallahs,smava ks,19.0
+2762,06/15/2017,thu,pan bao,smava ks,29.0
+2778,06/16/2017,fri,sam yuk gu,smava ks,18.0
+2797,06/19/2017,mon,hashi kitchen,smava ks,15.0
+2816,06/20/2017,tue,pasta deli,smava ks,18.0
+2827,06/21/2017,wed,la parrilla,smava ks,22.0
+2851,06/22/2017,thu,fatoush,smava ks,17.0
+2869,06/23/2017,fri,chupenga,smava ks,17.0
+2887,06/26/2017,mon,nil,smava ks,27.0
+2903,06/27/2017,tue,w der imbiss,smava ks,18.0
+2926,06/28/2017,wed,pan bao,smava ks,21.0
+2947,06/29/2017,thu,salut,smava ks,18.0
+2969,06/30/2017,fri,pan bao,smava ks,19.0
+2982,07/03/2017,mon,la parrilla,smava ks,22.0
+3002,07/04/2017,tue,the butcher,smava ks,15.0
+3028,07/05/2017,wed,yarok,smava ks,19.0
+3047,07/06/2017,thu,kirsons,smava ks,23.0
+3061,07/07/2017,fri,chupenga,smava ks,14.0
+3082,07/10/2017,mon,berlin burrito,smava ks,16.0
+3101,07/11/2017,tue,fatoush,smava ks,16.0
+3139,07/12/2017,wed,kindl stuben,smava ks,25.0
+3149,07/13/2017,thu,hashi kitchen,smava ks,19.0
+3173,07/14/2017,fri,nil,smava ks,24.0

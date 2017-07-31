@@ -1,0 +1,31 @@
+,May,Avg Temp,Avg Wind,Event
+0,1,14,14, 
+1,2,17,5, 
+2,3,17,10,Rain
+3,4,16,10,Rain
+4,5,16,5,Rain
+5,6,19,10,Rain
+6,7,16,21,"Rain , Thunderstorm"
+7,8,16,18,Rain
+8,9,21,13,Rain
+9,10,18,10,"Fog , Rain"
+10,11,22,6,Rain
+11,12,20,16,Rain
+12,13,18,24,Rain
+13,14,17,11, 
+14,15,19,5,Rain
+15,16,18,18,Rain
+16,17,17,21, 
+17,18,18,6,Fog
+18,19,22,3,Fog
+19,20,23,8, 
+20,21,18,10, 
+21,22,21,10,"Rain , Thunderstorm"
+22,23,19,14,"Rain , Thunderstorm"
+23,24,19,14,Rain
+24,25,19,18,Rain
+25,26,17,13,Rain
+26,27,17,5, 
+27,28,20,11,"Rain , Thunderstorm"
+28,29,18,10,"Fog , Rain , Thunderstorm"
+29,30,17,26,Rain

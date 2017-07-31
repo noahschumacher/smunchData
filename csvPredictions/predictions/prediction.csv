@@ -1,0 +1,20 @@
+,Day,Restaurant,Customer,Predicted Orders,Data Points on Day,Day trend Slope,Data Points on Rest,Rest trend Slope
+0,Mon,Fatoush,Book a tiger ,8.5,8,0.083,3,-3.0
+1,Mon,Fatoush,Dojo Madness,10.5,42,0.142,4,1.7
+2,Mon,Fatoush,Exozet,11.0,4,-0.5,2,1.0
+3,Mon,Fatoush,Glispa,15.5,8,0.94,3,6.0
+4,Mon,Fatoush,HYAZINTH - L,7.0,26,-0.064,1,0.0
+5,Mon,Fatoush,Horeca,7.0,4,-0.0,2,-9.0
+6,Mon,Fatoush,EMPAUA,4.0,26,-0.027,4,-0.0
+7,Mon,Fatoush,smava ks,14.5,33,0.156,4,-2.8
+8,Mon,Fatoush,Shiver Nebula,5.5,37,0.025,5,1.6
+9,Mon,Fatoush,Vice Media,8.5,4,2.1,2,2.0
+10,Mon,Fatoush,Moia,26.0,2,4.0,1,0.0
+11,Mon,Fatoush,BAS Kundenservice,9.0,11,0.645,4,2.0
+12,Mon,Fatoush,EY Friedrichstrasse,8.5,8,0.012,4,-0.8
+13,Mon,Fatoush,Immokey (Mahren II),4.0,31,0.025,4,-0.0
+14,Mon,Fatoush,Mahren Immobilien,12.0,43,-0.188,4,1.1
+15,Mon,Fatoush,smava ff,2.5,33,-0.054,4,-0.6
+16,Mon,Fatoush,Trinavis,2.0,5,-0.1,4,-0.3
+17,Mon,Fatoush,Wayfair (Kop),61.0,12,2.517,4,9.4
+18,Mon,Fatoush,eHealth Medidate,1.5,13,-0.088,4,-1.0
