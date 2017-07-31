@@ -1,5 +1,6 @@
 # Noah M. Schumacher
 
+import sys
 sys.path.insert(0, '/Users/nschumacher/docs/smunchRoR/smunchData')
 from helpers import *
 
@@ -95,7 +96,7 @@ def main():
 
 	#sumCompany(df_predictions)
 
-	df_predictions.to_csv('prediction.csv', sep = ',')
+	df_predictions.to_csv('prediction_From_csv.csv', sep = ',')
 
 
 

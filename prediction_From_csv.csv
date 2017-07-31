@@ -1,0 +1,17 @@
+,Day,Restaurant,Customer,Predicted Orders,Data Points on Day,Day trend Slope,Data Points on Rest,Rest trend Slope
+0,Wed,W der Imbiss,Book a tiger ,13.0,8,0.714,1,0.0
+1,Wed,W der Imbiss,Dojo Madness,8.5,46,0.131,4,2.0
+2,Wed,W der Imbiss,Exozet,9.0,5,1.6,1,0.0
+3,Wed,W der Imbiss,OrgOS,1.5,11,-0.109,2,-0.0
+4,Wed,W der Imbiss,Financefox,1.5,15,-0.079,2,-0.0
+5,Wed,W der Imbiss,EMPAUA,3.0,34,-0.093,4,-0.6
+6,Wed,W der Imbiss,Shiver Nebula,2.5,50,0.001,4,0.3
+7,Wed,W der Imbiss,Vice Media,10.8,3,3.0,0,
+8,Wed,W der Imbiss,Lofelt,16.0,21,0.07,0,
+9,Wed,Berlin Burrito,Glispa,11.0,28,0.017,3,0.5
+10,Wed,Berlin Burrito,Kontist,15.0,63,0.188,6,1.143
+11,Wed,Berlin Burrito,Momox,17.0,7,0.714,0,
+12,Wed,Berlin Burrito,Smava Ks,20.5,36,0.143,7,0.071
+13,Wed,Berlin Burrito,BAS Kundenservice,12.5,13,0.731,4,2.5
+14,Wed,Berlin Burrito,EY Friedrichstrasse,12.5,9,0.517,3,1.0
+15,Wed,Berlin Burrito,Immokey (Mahren II),5.0,35,0.001,7,0.464

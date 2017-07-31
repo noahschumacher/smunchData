@@ -73,7 +73,7 @@ class App(QWidget):
 
 		self.restrauntSelector = QComboBox()
 		self.restrauntSelector.addItems(self.getUniqueRestraunts())
-		self.restrauntSelector.currentIndexChanged.connect(self.restSelectionChange)
+		self.restrauntSelector.currentIndexChanged.connect(self.restSelectionChange) ####### How to store resraunt changed too?
 
 		restaurantLayout.addWidget(self.restrauntSelector)
 

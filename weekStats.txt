@@ -16,7 +16,7 @@ Predictions For the Week 30/7/2017
 Day:		|Prediction:	| Actual: 	| Dif:	| % Error:
 ——————————————————————————————————————————————————————————————————
 Monday		|219		|209		|+10	| 4.7%
-Tuesday		|		|		|	|
+Tuesday		|223		|		|	|
 Wednesday	|		|		|	|
 Thursday	|		|		|	|
 Friday		|		|		|	|
