@@ -15,13 +15,13 @@ Total: 		|1206		|1233		|+27	| 2.1 %
 Predictions For the Week 30/7/2017
 Day:		|Prediction:	| Actual: 	| Dif:	| % Error:
 ——————————————————————————————————————————————————————————————————
-Monday		|219		|209		|+10	| 4.7%
-Tuesday		|223		|		|	|
-Wednesday	|		|		|	|
-Thursday	|		|		|	|
-Friday		|		|		|	|
+Monday		|219		|209		|+10	| 4.7 %
+Tuesday		|223		|206		|+17	| 8.2 %
+Wednesday	|302		|		|	|
+Thursday	|193		|		|	|
+Friday		|167		|		|	|
 
-Total: 		|		|		|	|
+Total: 		|1104		|		|	|
 
 
 

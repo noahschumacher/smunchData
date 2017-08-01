@@ -10,7 +10,7 @@ import numpy as np
 def getData():
 
 	cols = ['Date', 'Day', 'Restaurant', 'Customer', 'Paying Orders']
-	df = pd.read_csv('csvPredictions/predictions/smunchDataHistorical.csv', skipinitialspace=True, usecols=cols)
+	df = pd.read_csv('/Users/nschumacher/docs/smunchRoR/smunchData/csvPredictions/predictions/smunchDataHistorical.csv', skipinitialspace=True, usecols=cols)
 
 	# Changing the Colmn Names
 	df.columns = ['Date', 'Day', 'Restaurant', 'Customer', 'Paying Orders']
