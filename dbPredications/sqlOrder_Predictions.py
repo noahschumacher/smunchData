@@ -63,6 +63,10 @@ def get_company_orderHistory_from_restaurant(cursor, company_id, restaurant_id):
 	company_orders_Restaurant_df = DataFrame(cursor.fetchall(), columns = ['dish_count', 'delivered_at'])
 	return company_orders_Restaurant_df
 
+def get_actual_order_DoW_and_Rest(cursor, company_id, DoW, restaurant_id):
+	get_command = "SELECT dish_count, delivered_at FROM closings WHERE company_id = %d AND extract(dow from  delivered_at) = %d AND restraurant_id = %d" %(company_id, DoW, restraurant_id)
+	
+
 
 #####################################################################################
 #############  					WORKING WITH DATA   					#############
