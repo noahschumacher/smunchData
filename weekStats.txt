@@ -17,8 +17,8 @@ Day:		|Prediction:	| Actual: 	| Dif:	| % Error:
 ——————————————————————————————————————————————————————————————————
 Monday		|219		|209		|+10	| 4.7 %
 Tuesday		|223		|206		|+17	| 8.2 %
-Wednesday	|302		|		|	|
-Thursday	|193		|		|	|
+Wednesday	|302		|279		|+33	|11.8 %
+Thursday	|236		|241		|-5	| 2.0 %
 Friday		|167		|		|	|
 
 Total: 		|1104		|		|	|
