@@ -1,5 +1,6 @@
 # Noah M. Schumacher
-# First attempt at grabbing data from Smunch DB using sql in python
+# Gets average time a company has placed 75%, 90%, 95% of its orders
+# Writes to CSV file at end of get_company_order_percent_times()
 
 import psycopg2
 import pandas as pd
@@ -72,6 +73,8 @@ def get_company_order_percent_times(cursor):
 	count = 0
 	for company_id in companies:
 		count += 1
+		#if count > 12:
+		#	break
 		print("\nHere is the NEW company_id:", company_id[0])
 
 		#### Getting the dates this company had a scheduled delivery
@@ -124,7 +127,7 @@ def get_company_order_percent_times(cursor):
 	print("RESULT")
 	print(company_time_delta_DF)
 
-	company_time_delta_DF.to_csv("for_now.csv", sep = ",")
+	company_time_delta_DF.to_csv("order_placed_percentage_times.csv", sep = ",", index = False)
 	return company_time_delta_DF
 
 
@@ -186,5 +189,6 @@ def main():
 	timeDF = get_company_order_percent_times(cursor)
 
 	#presentingTime.presentation(timeDF)
+
 
 main()
