@@ -67,14 +67,14 @@ def presentation(timeDF):
 	print("Mu_90:", mu_90, " | Std_D_90:", std_D_90, " | variance_90:", variance_90)
 	print("Mu_75:", mu_75, " | Std_D_75:", std_D_75, " | variance_75:", variance_75)
 
-	x = np.linspace(-25, 80, 100)
+	x = np.linspace(-10, 50, 100)
 
 
 	plt.plot(x, mlab.normpdf(x, mu_95, std_D_95), color= 'r', label = "95%")
 	plt.plot(x, mlab.normpdf(x, mu_90, std_D_90), color= 'b', label = "90%")
 	plt.plot(x, mlab.normpdf(x, mu_75, std_D_75), color= 'g', label = "75%")
 
-	plt.xticks(np.arange(0, 120, 4))
+	plt.xticks(np.arange(0, 50, 4))
 
 	plt.xlabel("Time before order closure")
 	plt.ylabel(" ")
@@ -95,7 +95,7 @@ def convert_times(timeDF, col):
 
 		total_hours = hours + minutes/60
 
-		if total_hours < 48:
+		if 0 < total_hours < 48:
 			times_in_hours.append(total_hours)
 
 	return times_in_hours
@@ -106,4 +106,4 @@ def main():
 
 	presentation(df)
 
-main()
+#main()

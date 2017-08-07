@@ -185,10 +185,7 @@ def clean_up(df, cursor):
 #####################################################################################
 def main():
 	cursor = get_connection()
-
 	timeDF = get_company_order_percent_times(cursor)
-
-	#presentingTime.presentation(timeDF)
 
 
 main()
