@@ -3,7 +3,6 @@
 # It aggregates all the companies ordered in the past two months and to form distributions
 # Reads in csv file in same directory in read_in() function
 
-import psycopg2
 import pandas as pd
 from pandas import Series, DataFrame
 import numpy as np
@@ -13,6 +12,7 @@ import matplotlib.mlab as mlab
 import re
 from datetime import timedelta
 
+### Reads in general companies orderTimes_% and formats.
 def read_in():
 	df = pd.read_csv("order_placed_percentage_times.csv", skipinitialspace = True)
 
@@ -22,6 +22,7 @@ def read_in():
 
 	return df
 
+### Formats the times in DF col by excluding negative times and calls stringTD_to_TD
 def format_times(df, col):
 	
 	count = 0
@@ -36,7 +37,7 @@ def format_times(df, col):
 
 	return df
 
-
+### converts string timedelta to datetime.timedelta
 def stringTD_to_TD(s):
     if 'day' in s:
         m = re.match(r'(?P<days>[-\d]+) day[s]* (?P<hours>\d+):(?P<minutes>\d+):(?P<seconds>\d[\.\d+]*)', s)
@@ -44,6 +45,7 @@ def stringTD_to_TD(s):
         m = re.match(r'(?P<hours>\d+):(?P<minutes>\d+):(?P<seconds>\d[\.\d+]*)', s)
     return timedelta(**{key: float(val) for key, val in m.groupdict().items()})
 
+### Reads in timeDF and presents three bells curves for 75,90,95%
 def presentation(timeDF):
 
 	times_in_hours_95 = convert_times(timeDF, "avg_time_dif_95")
@@ -51,17 +53,17 @@ def presentation(timeDF):
 	times_in_hours_75 = convert_times(timeDF, "avg_time_dif_75")
 
 
-	mu_95 = np.mean(times_in_hours_95)
-	mu_90 = np.mean(times_in_hours_90)
-	mu_75 = np.mean(times_in_hours_75)
+	mu_95 = round(np.mean(times_in_hours_95),2)
+	mu_90 = round(np.mean(times_in_hours_90),2)
+	mu_75 = round(np.mean(times_in_hours_75),2)
 
-	std_D_95 = np.std(times_in_hours_95)
-	std_D_90 = np.std(times_in_hours_90)
-	std_D_75 = np.std(times_in_hours_75)
+	std_D_95 = round(np.std(times_in_hours_95),2)
+	std_D_90 = round(np.std(times_in_hours_90),2)
+	std_D_75 = round(np.std(times_in_hours_75),2)
 
-	variance_95 = std_D_95**2
-	variance_90 = std_D_90**2
-	variance_75 = std_D_75**2
+	variance_95 = round(std_D_95**2,2)
+	variance_90 = round(std_D_90**2,2)
+	variance_75 = round(std_D_75**2,2)
 
 	print("Mu_95:", mu_95, " | Std_D_95:", std_D_95, " | variance_95:", variance_95)
 	print("Mu_90:", mu_90, " | Std_D_90:", std_D_90, " | variance_90:", variance_90)
@@ -85,6 +87,7 @@ def presentation(timeDF):
 
 	plt.show()
 
+### Converts timeDeltas into an hours count and return list of hours
 def convert_times(timeDF, col):
 	times_in_hours = []
 	for i in timeDF[col]:
@@ -103,7 +106,6 @@ def convert_times(timeDF, col):
 
 def main():
 	df = read_in()
-
 	presentation(df)
 
 #main()

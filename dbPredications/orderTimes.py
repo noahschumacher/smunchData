@@ -1,6 +1,7 @@
 # Noah M. Schumacher
 # Gets average time a company has placed 75%, 90%, 95% of its orders
 # Writes to CSV file at end of get_company_order_percent_times()
+# Single run script some of logic here is copied into timeForCompanies.py
 
 import psycopg2
 import pandas as pd
@@ -28,6 +29,7 @@ def get_connection():
 #####################################################################################
 #############	  				SQL QUERIES  							#############
 #####################################################################################
+#### General sql query format
 def sql_Query(cursor, dataForm, query):
 	if dataForm == "Series":
 		get_command = query
@@ -73,14 +75,10 @@ def get_company_order_percent_times(cursor):
 	count = 0
 	for company_id in companies:
 		count += 1
-		#if count > 12:
-		#	break
 		print("\nHere is the NEW company_id:", company_id[0])
 
 		#### Getting the dates this company had a scheduled delivery
 		delivery_dates = get_company_delivery_dates(cursor, company_id[0]) 		### SQL Query
-
-		#input("new company?")
 
 		company_times_95 = []	#### List of time deltas for company
 		company_times_90 = []
@@ -90,11 +88,12 @@ def get_company_order_percent_times(cursor):
 		for delivered_at in delivery_dates:
 			print("\nCompany ID: ", company_id[0]," | Delivery Date:", delivered_at[0])
 
+			### Getting the choice orders from company for certain delivery day
 			daily_company_orders = get_order_times_and_count(cursor, company_id[0], delivered_at[0])	### SQL query
 
-			### Checking if no orders placed
+			### Checking if no orders placed and appending the order times where each % was hit
 			if daily_company_orders.empty == True:
-				print("Empty DF: didnt order on this day")
+				print("Empty DF: didnt order for this day")
 			else:
 				daily_company_orders = DataFrame(daily_company_orders.values, columns = ['dish_count', 'delivered_at', 'updated_at'])
 				daily_company_orders = daily_company_orders.sort_values('updated_at')
@@ -113,13 +112,13 @@ def get_company_order_percent_times(cursor):
 		ran_through_companies.append(company_id[0])
 
 
+	### Creating dataFrame for all companies
 	company_time_delta_DF = DataFrame()
 	company_time_delta_DF["company_id"] = ran_through_companies
 	company_time_delta_DF["avg_time_dif_95"] = avg_time_dif_95
 	company_time_delta_DF["avg_time_dif_90"] = avg_time_dif_90
 	company_time_delta_DF["avg_time_dif_75"] = avg_time_dif_75
 
-	print("1111111", company_time_delta_DF)
 
 	company_time_delta_DF = clean_up(company_time_delta_DF, cursor)
 	
@@ -130,7 +129,7 @@ def get_company_order_percent_times(cursor):
 	company_time_delta_DF.to_csv("order_placed_percentage_times.csv", sep = ",", index = False)
 	return company_time_delta_DF
 
-
+### Finds the timeDelta from closing to the last order that hit x% 
 def order_time_percentage(daily_company_orders, percent):
 
 	length 		= daily_company_orders.shape[0]
@@ -150,6 +149,7 @@ def order_time_percentage(daily_company_orders, percent):
 
 			return tdelt
 
+### Avg's all the time deltas for a specfic list of tdelts
 def avg_time_deltas(times):
 	if len(times) == 0:
 		print("len == 0?")
@@ -159,11 +159,11 @@ def avg_time_deltas(times):
 
 	return avg
 
+### Cleans up final DataFrame and adds names of companies
 def clean_up(df, cursor):
 	df = df[df.avg_time_dif_95 != 0]
 	df = df.reset_index(drop=True)
 
-	print("222222", df)
 
 	company_names = []
 
@@ -179,6 +179,7 @@ def clean_up(df, cursor):
 	print("len company names", len(company_names))
 	df['names'] = company_names
 	return df
+
 
 #####################################################################################
 #############  				   		MAIN 		 						#############

@@ -1,12 +1,11 @@
 # Noah M. Schumacher
-# First attempt at grabbing data from Smunch DB using sql in python
+# Calculates the predicted orders for a company bases on DayOfWeek and assigned Restaurant
 
 import psycopg2
 import pandas as pd
 from pandas import Series, DataFrame
 import numpy as np
 
-import matplotlib.pyplot as plt
 
 #####################################################################################
 #############	  			CONNECT TO SMUNCH DB   						#############
@@ -63,21 +62,19 @@ def get_company_orderHistory_from_restaurant(cursor, company_id, restaurant_id):
 	company_orders_Restaurant_df = DataFrame(cursor.fetchall(), columns = ['dish_count', 'delivered_at'])
 	return company_orders_Restaurant_df
 
-def get_actual_order_DoW_and_Rest(cursor, company_id, DoW, restaurant_id):
-	get_command = "SELECT dish_count, delivered_at FROM closings WHERE company_id = %d AND extract(dow from  delivered_at) = %d AND restraurant_id = %d" %(company_id, DoW, restraurant_id)
-	
-
 
 #####################################################################################
 #############  					WORKING WITH DATA   					#############
 #####################################################################################
+
+##### Aggregating the total orders on specific Date or Restaurant
 def orders_on_param_from_company(df):
 	length = df.shape[0]
 	orders_on_param_list = []
 	orders_on_param = 0
 
 	for i in range(length):
-		###### Handling last data point
+		#### Handling last data point
 		if i == length-1:
 			if df.iloc[i, 1] == df.iloc[i-1, 1]:
 				orders_on_param_list.append(orders_on_param + df['dish_count'][i])
@@ -85,7 +82,7 @@ def orders_on_param_from_company(df):
 			else:
 				orders_on_param_list.append(df['dish_count'][i])
 				break
-
+		#### Checking if delivery date matches next delivery date and if so adding val to orders_on_param
 		if df.iloc[i, 1] == df.iloc[i+1, 1]:
 			orders_on_param += df['dish_count'][i]
 		else:
@@ -93,7 +90,7 @@ def orders_on_param_from_company(df):
 			orders_on_param_list.append(orders_on_param)
 			orders_on_param = 0
 
-	# NOT ENOUGH DATA
+	# NOT ENOUGH DATA // Error handling
 	if len(orders_on_param_list) == 0:
 		return [0, 0]
 	elif len(orders_on_param_list) == 1:
@@ -104,6 +101,8 @@ def orders_on_param_from_company(df):
 	prediction = predict_orders_vs_param(orders_on_param_list)
 	return [prediction, 3]
 
+
+#### Takes list of orders and creates finds linear regression equation then predicts
 def predict_orders_vs_param(orders):
 
 	x = list(range(len(orders)))
@@ -121,6 +120,7 @@ def predict_orders_vs_param(orders):
 
 	return prediction
 
+#### Attempts to weight the parameter predictions.
 def weighting(pred1, pred2):
 	pred1_valid = pred1[1] == 3
 	pred2_valid = pred2[1] == 3
@@ -132,12 +132,6 @@ def weighting(pred1, pred2):
 		weighted_prediction = pred2[0]
 	print("Final weighted prediction is:")
 	print(weighted_prediction)
-
-
-#####################################################################################
-#############  					Finding Data From Sit  					#############
-#####################################################################################
-
 
 
 #####################################################################################
@@ -155,17 +149,18 @@ def main():
 	print("Getting all companies ordered in past 2 moths...\n")
 	companies_ordered_inP_2M_DF = get_unique_companies_ordered_inP_2M(cursor)
 
-	DoW = 3
-	company = 248
-	restaurant = 4
+	DoW = 1
+	company = 90
+	restaurant = 20
 
 	print("Getting specific company complete order history...\n")
 	company_order_history_all = get_company_order_history(cursor, company)
 
 	print("Getting specific company specific Day of Week order history...\n")
 	company_order_hisotry_DoW = get_company_orderHistory_on_specific_day(cursor, company, DoW)
+	print(company_order_hisotry_DoW)
 
-	print("Getting specifiv company specific restaurant order history...\n")
+	print("Getting specific company specific restaurant order history...\n")
 	company_order_history_Restaurant = get_company_orderHistory_from_restaurant(cursor, company, restaurant)
 
 	print("Predicting...\n")
