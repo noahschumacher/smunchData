@@ -53,24 +53,25 @@ def presentation(timeDF):
 	times_in_hours_75 = convert_times(timeDF, "avg_time_dif_75")
 
 
-	mu_95 = round(np.mean(times_in_hours_95),2)
-	mu_90 = round(np.mean(times_in_hours_90),2)
-	mu_75 = round(np.mean(times_in_hours_75),2)
+	mu_95 = round(np.mean(times_in_hours_95),3)
+	mu_90 = round(np.mean(times_in_hours_90),3)
+	mu_75 = round(np.mean(times_in_hours_75),3)
 
-	std_D_95 = round(np.std(times_in_hours_95),2)
-	std_D_90 = round(np.std(times_in_hours_90),2)
-	std_D_75 = round(np.std(times_in_hours_75),2)
+	std_D_95 = round(np.std(times_in_hours_95),3)
+	std_D_90 = round(np.std(times_in_hours_90),3)
+	std_D_75 = round(np.std(times_in_hours_75),3)
 
-	variance_95 = round(std_D_95**2,2)
-	variance_90 = round(std_D_90**2,2)
-	variance_75 = round(std_D_75**2,2)
+	variance_95 = round(std_D_95**2,3)
+	variance_90 = round(std_D_90**2,3)
+	variance_75 = round(std_D_75**2,3)
 
 	print("Mu_95:", mu_95, " | Std_D_95:", std_D_95, " | variance_95:", variance_95)
 	print("Mu_90:", mu_90, " | Std_D_90:", std_D_90, " | variance_90:", variance_90)
 	print("Mu_75:", mu_75, " | Std_D_75:", std_D_75, " | variance_75:", variance_75)
 
-	x = np.linspace(-10, 50, 100)
+	info = [[0.95, mu_95, std_D_95], [0.90, mu_90, std_D_90], [0.75, mu_75, std_D_75]]
 
+	'''x = np.linspace(-10, 50, 100)
 
 	plt.plot(x, mlab.normpdf(x, mu_95, std_D_95), color= 'r', label = "95%")
 	plt.plot(x, mlab.normpdf(x, mu_90, std_D_90), color= 'b', label = "90%")
@@ -84,8 +85,9 @@ def presentation(timeDF):
 	plt.legend()
 	plt.grid(b=True, which='both')
 
+	plt.show()'''
 
-	plt.show()
+	return info
 
 ### Converts timeDeltas into an hours count and return list of hours
 def convert_times(timeDF, col):

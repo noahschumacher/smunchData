@@ -5,6 +5,8 @@ import psycopg2
 import pandas as pd
 from pandas import Series, DataFrame
 import numpy as np
+import timeForCompany
+import datetime as dt
 
 
 #####################################################################################
@@ -62,6 +64,8 @@ def get_company_orderHistory_from_restaurant(cursor, company_id, restaurant_id):
 	company_orders_Restaurant_df = DataFrame(cursor.fetchall(), columns = ['dish_count', 'delivered_at'])
 	return company_orders_Restaurant_df
 
+def get_company_current_orders(cursor, company_id):
+	print("hi")
 
 #####################################################################################
 #############  					WORKING WITH DATA   					#############
@@ -106,8 +110,8 @@ def orders_on_param_from_company(df):
 def predict_orders_vs_param(orders):
 
 	x = list(range(len(orders)))
-	print(x)
-	print(orders)
+	#print(x)
+	#print(orders)
 
 	z = np.polyfit(x, orders, 1)
 	print("y =",z[0],"x + ", z[1])
@@ -120,16 +124,79 @@ def predict_orders_vs_param(orders):
 
 	return prediction
 
+#### The x% of orders time prediction, weighting
+def x_percent_orders(company_id, DofW, currentOrders):
+	### info = [[.95, mu_95, std_95], [.90, mu_90, std_90]...]
+	info = timeForCompany.createTable(company_id, DofW)
+
+	time_to_closure = time_From_closure()
+
+	timeDif = []
+	for i in range(3):
+		timeDif.append(round(abs(time_to_closure - info[i][1]), 2))
+
+	print("\ntimeDif:", timeDif)
+
+	min_index = timeDif.index(min(timeDif))
+	print("\nMin Index:", min_index)
+
+	timeDif = []
+	for i in range(3):
+		timeDif.append(round(time_to_closure - info[i][1], 2))
+
+	time_prediction = currentOrders / info[min_index][0]
+	print("time Prediction:  ", time_prediction)
+
+	w_away = 9-(2**(min_index+1))
+	wT_avg = 4
+	wT_std = 8
+
+	print("\nw_T =", w_away, "/ ((", timeDif[min_index], "* (1/", wT_avg, ")) +", info[min_index][2],"* (1/", wT_std,"))")
+	w_T = w_away / ((timeDif[min_index] * (1/wT_avg)) + info[min_index][2] * (1/wT_std))
+	print("time weighting:", w_T)
+
+	return [time_prediction, w_T]
+
+def time_From_closure():
+
+	### FIRST method, relies on prediction being made day before delivery_date
+
+	current_time = "23:03:48"#str(dt.datetime.time(dt.datetime.now()))
+	print("\nCurrent Time:", current_time)
+	(h, m, s) = current_time.split(':')
+	hours = round(int(h) + int(m) / 60, 2)
+	time_From_closure = 24 - hours + 9.5
+	print("\nTime From Closure:", time_From_closure)
+	return time_From_closure
+
+
+	### SECOND method allows for prediction from any day but needs 'delivery_date' passed in
+
+	'''current_dateTime = dt.datetime.now()
+	print("\nCurrent Time:", current_time)
+	delivery_date = datetime.date.today() + datetime.timedelta(days=1)
+	time_to_closure = dt.datetime.combine(delivery_date.date(), dt.time(10:30)) - current_dateTime
+	days, seconds = time_to_closure.days, time_to_closure.seconds
+	hours = days * 24 + seconds // 3600
+	print("\nTime From Closure:", hours)
+	return time_From_closure'''
+	
+
 #### Attempts to weight the parameter predictions.
-def weighting(pred1, pred2):
-	pred1_valid = pred1[1] == 3
-	pred2_valid = pred2[1] == 3
-	if pred1_valid and pred2_valid:
-		weighted_prediction = (pred1[0] + pred2[0])/2
-	elif pred1_valid:
-		weighted_prediction = pred1[0]
+def weighting(pred_DofW, pred_Rest, time_pred_weight):
+	pred_DofW_valid = pred_DofW[1] == 3
+	pred_Rest_valid = pred_Rest[1] == 3
+
+	w_T = time_pred_weight[1]
+	w_D = 1
+	w_R = 1
+
+	if pred_DofW_valid and pred_Rest_valid:
+		weighted_prediction = (pred_DofW[0]*w_D + pred_Rest[0]*w_R + time_pred_weight[0]*w_T)/(w_D+w_R+w_T)
+	elif pred_DofW_valid:
+		weighted_prediction = ((pred_DofW[0]*w_D)+(time_pred_weight[0]*w_T))/(w_D+w_T)
 	else:
-		weighted_prediction = pred2[0]
+		weighted_prediction = time_pred_weight[0]
 	print("Final weighted prediction is:")
 	print(weighted_prediction)
 
@@ -140,36 +207,33 @@ def weighting(pred1, pred2):
 def main():
 	cursor = get_connection()
 
-	print("Getting all the companies...\n")
-	unique_companies_all = get_unique_companies_as_series(cursor)
+	### All of this should be retrieved from live DB for all companies that are set
+	delivery_date = dt.datetime.now() + dt.timedelta(days=1)
+	DoW = dt.datetime.date(delivery_date).weekday() + 1		## Day of Week in sql 0-4, python 1-5
+	print(DoW)
 
-	print("Getting all the restraunts...\n")
-	unique_restraunts_all = get_unique_restaurants_as_DF_if_active(cursor)
-
-	print("Getting all companies ordered in past 2 moths...\n")
-	companies_ordered_inP_2M_DF = get_unique_companies_ordered_inP_2M(cursor)
-
-	DoW = 1
-	company = 90
-	restaurant = 20
-
-	print("Getting specific company complete order history...\n")
-	company_order_history_all = get_company_order_history(cursor, company)
+	company_id = 244
+	restaurant_id = 3
+	current_Orders = 29 #get_company_current_orders(cursor, company_id)
 
 	print("Getting specific company specific Day of Week order history...\n")
-	company_order_hisotry_DoW = get_company_orderHistory_on_specific_day(cursor, company, DoW)
-	print(company_order_hisotry_DoW)
+	company_order_hisotry_DoW = get_company_orderHistory_on_specific_day(cursor, company_id, DoW)
+	print("PREDICTING from DAYOFWEEK...\n")
+	predicted_orders_for_DoW = orders_on_param_from_company(company_order_hisotry_DoW)
+	if predicted_orders_for_DoW[0] <= current_Orders + (current_Orders*.15):
+		predicted_orders_for_DoW[1] = False
 
 	print("Getting specific company specific restaurant order history...\n")
-	company_order_history_Restaurant = get_company_orderHistory_from_restaurant(cursor, company, restaurant)
-
-	print("Predicting...\n")
-	predicted_orders_for_DoW = orders_on_param_from_company(company_order_hisotry_DoW)
-
-	print("Predicting...\n")
+	company_order_history_Restaurant = get_company_orderHistory_from_restaurant(cursor, company_id, restaurant_id)
+	print("PREDICTING from RESTAURANT...\n")
 	predicted_orders_for_Restaurant = orders_on_param_from_company(company_order_history_Restaurant)
+	if predicted_orders_for_Restaurant[0] <= current_Orders + (current_Orders*.15):
+		predicted_orders_for_Restaurant[1] = False
+
+	print("Getting % Time Weighting...")
+	time_pred_weight = x_percent_orders(company_id, DoW-1, current_Orders)
 
 	print("Weighting...\n")
-	weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant)
+	weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant, time_pred_weight)
 
 main()

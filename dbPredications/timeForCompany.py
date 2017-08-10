@@ -59,52 +59,44 @@ def fixSeries(ss):
 
 #### Given company cycles through Monday-Friday and finds avg, std, and plots time 
 #### from closing for x% or orders to be placed.
-def createTable(company_id):
+def createTable(company_id, DofW):
 	cursor =  get_connections()
 
-	for DofW in range(0,5):
-		print("Day Of Week:", DofW)
+	print("Day Of Week:", DofW)
 
-		company_times_95 = []	#### List of time deltas for company
-		company_times_90 = []
-		company_times_75 = []
+	company_times_95 = []	#### List of time deltas for company
+	company_times_90 = []
+	company_times_75 = []
 
-		delivery_dates = fixSeries(get_delivery_dates_on_DofW(cursor, company_id, DofW))
-		#print("All Company Delivery Dates:\n",delivery_dates)
-		#print("Number of delivery dates:", len(delivery_dates))
+	delivery_dates = fixSeries(get_delivery_dates_on_DofW(cursor, company_id, DofW))
 
-		#### filters out dates that arent specified DofW
-		delivery_dates = list(filter(lambda a: a.weekday() == DofW, delivery_dates))
+	#### filters out dates that arent specified DofW
+	delivery_dates = list(filter(lambda a: a.weekday() == DofW, delivery_dates))
 
-		####
-		for delivery_date in delivery_dates:
-			daily_company_orders = get_order_times_and_count(cursor, company_id, delivery_date)
-		
-			### Checking if no orders placed
-			if daily_company_orders.empty == True:
-				print("Empty DF: didnt order for this day")
-			else:
-				daily_company_orders = DataFrame(daily_company_orders.values, columns = ['dish_count', 'delivered_at', 'updated_at'])
-				daily_company_orders = daily_company_orders.sort_values('updated_at')
-				company_times_95.append(order_time_percentage(daily_company_orders, .95))	### Finds where 95% timestamp is
-				company_times_90.append(order_time_percentage(daily_company_orders, .90))	### Finds where 90% timestamp is
-				company_times_75.append(order_time_percentage(daily_company_orders, .75))	### Finds where 75% timestamp is
-				#print("\nHere are the company choice orders for specified delivery date:")
-				#print(daily_company_orders)
+	####
+	for delivery_date in delivery_dates:
+		daily_company_orders = get_order_times_and_count(cursor, company_id, delivery_date)
+	
+		### Checking if no orders placed
+		if daily_company_orders.empty == True:
+			print("Empty DF: didnt order for this day")
+		else:
+			daily_company_orders = DataFrame(daily_company_orders.values, columns = ['dish_count', 'delivered_at', 'updated_at'])
+			daily_company_orders = daily_company_orders.sort_values('updated_at')
+			company_times_95.append(order_time_percentage(daily_company_orders, .95))	### Finds where 95% timestamp is
+			company_times_90.append(order_time_percentage(daily_company_orders, .90))	### Finds where 90% timestamp is
+			company_times_75.append(order_time_percentage(daily_company_orders, .75))	### Finds where 75% timestamp is
 
-		#print(company_times_95)
-		#print(company_times_90)
-		#print(company_times_75)
-
-		company_time_delta_DF = DataFrame()
-		company_time_delta_DF["avg_time_dif_95"] = company_times_95
-		company_time_delta_DF["avg_time_dif_90"] = company_times_90
-		company_time_delta_DF["avg_time_dif_75"] = company_times_75
-
-		#print(company_time_delta_DF)
+	company_time_delta_DF = DataFrame()
+	company_time_delta_DF["avg_time_dif_95"] = company_times_95
+	company_time_delta_DF["avg_time_dif_90"] = company_times_90
+	company_time_delta_DF["avg_time_dif_75"] = company_times_75
 
 
-		presentingTime.presentation(company_time_delta_DF)
+	### Returns Dict with mean, std for three percentages in dictionary format
+	info = presentingTime.presentation(company_time_delta_DF)
+	return info
+
 
 #### Finds at what time x% of orders were placed, returns as timeDelt from closing.
 def order_time_percentage(daily_company_orders, percent):
@@ -124,6 +116,6 @@ def order_time_percentage(daily_company_orders, percent):
 			return tdelt
 
 
-company_id = 90
-createTable(company_id)
+#company_id = 117
+#createTable(company_id)
 
