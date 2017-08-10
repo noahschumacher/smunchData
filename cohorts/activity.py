@@ -1,15 +1,16 @@
 # Noah M. Schumacher, Aug 10, 2017
-# File creating a retention table from the smunch DB
+# File creating a activity table from the smunchDB
+# Almost exactly the same as retention except for in the ordered_y_in it aggregates
 
 #####################################################################################
 #############	  					NOTES		  						#############
 #####################################################################################
-''' Currently this file is a single run file so I did not write it with the intention
-of making a it a minimal memory, cpu load file. In the future if this is delpoyed on
-the webApp it should be modified with smarter logic as to mitigate the extensive
+''' Currently this file is a single run file so I did write it with the intention
+of making a it a minimal memory, cpu load file. In the future is this is delpoyed on
+the website it should be modified with smarter logic as to mitigate the extensive
 quarries and looping done to complete. It is also not scalable currently. By that I
 mean the period of time we are taking into account is manually set; so are the lines
-that populate the retention table (see lines 79-94). This will also have to be fixed
+that populate the activity table (see lines 79-94). This will also have to be fixed
 moving to a liver server. '''
 
 import psycopg2
@@ -57,55 +58,64 @@ def get_user_order_history(cursor, user_id):
 	user_order_history = sql_Query(cursor, "Series", "SELECT updated_at FROM choices WHERE user_id = %s AND menue_dish_id NOTNULL AND menue_dish_id != 0" %(user_id))
 	return user_order_history
 
+
 #####################################################################################
 #############  					WORKING WITH DATA   					#############
 #####################################################################################
-def retention(cursor):
-	# both columns and index for retention data frame
+def activity(cursor):
+
 	cols = ['2016-5','2016-6','2016-7','2016-8','2016-9','2016-10','2016-11','2016-12',
 	'2017-1','2017-2','2017-3','2017-4','2017-5','2017-6','2017-7','2017-8']
 
-	retentionDF = DataFrame(0, index = cols, columns = cols)
+	activityDF = DataFrame(0, index = cols, columns = cols)
+	print("Here is the initial activity DataFrame\n")
+	print(activityDF)
+
 	user_ids = get_user_ids(cursor)
 
-	### Cycling through all active users, who have ordered before
+	### Cycling through all active users
 	for id in user_ids:
 		user_order_history = get_user_order_history(cursor, id)
 
 		### Getting first order to set cohort
 		first_order = min(user_order_history)
-		year_First = first_order.year
-		month_First = first_order.month
-		first_Y_M = str(year_First)+'-'+str(month_First)
+		year = first_order.year
+		month = first_order.month
+		year_month = str(year)+'-'+str(month)
 
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(5)]  += ordered_in(user_order_history, 2016, 5)
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(6)]  += ordered_in(user_order_history, 2016, 6)
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(7)]  += ordered_in(user_order_history, 2016, 7)
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(8)]  += ordered_in(user_order_history, 2016, 8)
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(9)]  += ordered_in(user_order_history, 2016, 9)
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(10)] += ordered_in(user_order_history, 2016, 10)
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(11)] += ordered_in(user_order_history, 2016, 11)
-		retentionDF.ix[first_Y_M, str(2016)+'-'+str(12)] += ordered_in(user_order_history, 2016, 12)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(1)]  += ordered_in(user_order_history, 2017, 1)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(2)]  += ordered_in(user_order_history, 2017, 2)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(3)]  += ordered_in(user_order_history, 2017, 3)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(4)]  += ordered_in(user_order_history, 2017, 4)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(5)]  += ordered_in(user_order_history, 2017, 5)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(6)]  += ordered_in(user_order_history, 2017, 6)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(7)]  += ordered_in(user_order_history, 2017, 7)
-		retentionDF.ix[first_Y_M, str(2017)+'-'+str(8)]  += ordered_in(user_order_history, 2017, 8)
+		activityDF.ix[year_month, str(2016)+'-'+str(5)]  += ordered_y_in(user_order_history, 2016, 5)
+		activityDF.ix[year_month, str(2016)+'-'+str(6)]  += ordered_y_in(user_order_history, 2016, 6)
+		activityDF.ix[year_month, str(2016)+'-'+str(7)]  += ordered_y_in(user_order_history, 2016, 7)
+		activityDF.ix[year_month, str(2016)+'-'+str(8)]  += ordered_y_in(user_order_history, 2016, 8)
+		activityDF.ix[year_month, str(2016)+'-'+str(9)]  += ordered_y_in(user_order_history, 2016, 9)
+		activityDF.ix[year_month, str(2016)+'-'+str(10)] += ordered_y_in(user_order_history, 2016, 10)
+		activityDF.ix[year_month, str(2016)+'-'+str(11)] += ordered_y_in(user_order_history, 2016, 11)
+		activityDF.ix[year_month, str(2016)+'-'+str(12)] += ordered_y_in(user_order_history, 2016, 12)
+		activityDF.ix[year_month, str(2017)+'-'+str(1)]  += ordered_y_in(user_order_history, 2017, 1)
+		activityDF.ix[year_month, str(2017)+'-'+str(2)]  += ordered_y_in(user_order_history, 2017, 2)
+		activityDF.ix[year_month, str(2017)+'-'+str(3)]  += ordered_y_in(user_order_history, 2017, 3)
+		activityDF.ix[year_month, str(2017)+'-'+str(4)]  += ordered_y_in(user_order_history, 2017, 4)
+		activityDF.ix[year_month, str(2017)+'-'+str(5)]  += ordered_y_in(user_order_history, 2017, 5)
+		activityDF.ix[year_month, str(2017)+'-'+str(6)]  += ordered_y_in(user_order_history, 2017, 6)
+		activityDF.ix[year_month, str(2017)+'-'+str(7)]  += ordered_y_in(user_order_history, 2017, 7)
+		activityDF.ix[year_month, str(2017)+'-'+str(8)]  += ordered_y_in(user_order_history, 2017, 8)
 
-	print(retentionDF)
-	#retentionDF.to_csv("retentionDF.csv",sep = ',')
-	return retentionDF
+		#input("wait")
 
-def ordered_in(user_order_history, year, month):
+	print(activityDF)
+	activityDF.to_csv("activityDF.csv",sep = ',')
+	return activityDF
+
+def ordered_y_in(user_order_history, year, month):
+	total = 0
 	for updated_at in user_order_history:
 		yr = updated_at.year
 		mon = updated_at.month
 		if yr == year and mon == month:
-			return 1
-	return 0
+			total += 1
+	#print(total)
+	return total
+
 
 def fixSeries(ss):
 	newSS = []
@@ -116,7 +126,7 @@ def fixSeries(ss):
 def main():
 	cursor = get_connections()
 
-	retentionDF = retention(cursor)
+	activityDF = activity(cursor)
 
 main()
 
