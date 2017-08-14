@@ -161,7 +161,7 @@ def time_From_closure():
 
 	### FIRST method, relies on prediction being made day before delivery_date
 
-	current_time = "23:03:48"#str(dt.datetime.time(dt.datetime.now()))
+	current_time = "20:03:48"#str(dt.datetime.time(dt.datetime.now()))
 	print("\nCurrent Time:", current_time)
 	(h, m, s) = current_time.split(':')
 	hours = round(int(h) + int(m) / 60, 2)
@@ -205,16 +205,17 @@ def weighting(pred_DofW, pred_Rest, time_pred_weight):
 #############  				   		MAIN 		 						#############
 #####################################################################################
 def main():
+	start = dt.datetime.now()
 	cursor = get_connection()
 
 	### All of this should be retrieved from live DB for all companies that are set
 	delivery_date = dt.datetime.now() + dt.timedelta(days=1)
-	DoW = dt.datetime.date(delivery_date).weekday() + 1		## Day of Week in sql 0-4, python 1-5
+	DoW = dt.datetime.date(delivery_date).weekday()		## Day of Week in sql 0-4, python 1-5
 	print(DoW)
 
-	company_id = 244
+	company_id = 85
 	restaurant_id = 3
-	current_Orders = 29 #get_company_current_orders(cursor, company_id)
+	current_Orders = 4 #get_company_current_orders(cursor, company_id)
 
 	print("Getting specific company specific Day of Week order history...\n")
 	company_order_hisotry_DoW = get_company_orderHistory_on_specific_day(cursor, company_id, DoW)
@@ -235,5 +236,6 @@ def main():
 
 	print("Weighting...\n")
 	weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant, time_pred_weight)
-
+	end = dt.datetime.now()
+	print(end-start)
 main()
