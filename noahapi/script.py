@@ -58,13 +58,13 @@ class KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
 		
 		#just run the function here: 
 		self.wfile.write(
-			myCustomCalculation(
+			bytes(str(myCustomCalculation(
 				params['cID'], 
 				params['rID'], 
 				params['cOR'],
 				params['year'],
 				params['mon'],
-				params['day']))
+				params['day'])), "utf8"))
 		return
 
   
