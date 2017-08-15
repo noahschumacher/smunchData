@@ -5,7 +5,7 @@ import psycopg2
 import pandas as pd
 from pandas import Series, DataFrame
 import numpy as np
-import timeForCompany
+import timePrediction
 import datetime as dt
 
 
@@ -98,7 +98,7 @@ def orders_on_param_from_company(df):
 	if len(orders_on_param_list) == 0:
 		return [0, 0]
 	elif len(orders_on_param_list) == 1:
-		return [orders_on_param_list[0], 1]
+		return [orders_on_param_list, 1]
 	elif len(orders_on_param_list) == 2:
 		return [sum(orders_on_param_list)/2, 2]
 
@@ -125,11 +125,11 @@ def predict_orders_vs_param(orders):
 	return prediction
 
 #### The x% of orders time prediction, weighting
-def x_percent_orders(company_id, DofW, currentOrders):
+def x_percent_orders(company_id, DofW, currentOrders, delivery_date):
 	### info = [[.95, mu_95, std_95], [.90, mu_90, std_90]...]
-	info = timeForCompany.createTable(company_id, DofW)
+	info = timePrediction.createTable(company_id, DofW)
 
-	time_to_closure = time_From_closure()
+	time_to_closure = time_From_closure(delivery_date)
 
 	timeDif = []
 	for i in range(3):
@@ -157,29 +157,17 @@ def x_percent_orders(company_id, DofW, currentOrders):
 
 	return [time_prediction, w_T]
 
-def time_From_closure():
+def time_From_closure(delivery_date):
 
-	### FIRST method, relies on prediction being made day before delivery_date
-
-	current_time = "5:42:48"#str(dt.datetime.time(dt.datetime.now()))
-	print("\nCurrent Time:", current_time)
-	(h, m, s) = current_time.split(':')
-	hours = round(int(h) + int(m) / 60, 2)
-	time_From_closure = 24 - hours + 9.5
-	print("\nTime From Closure:", time_From_closure)
-	return time_From_closure
-
-
-	### SECOND method allows for prediction from any day but needs 'delivery_date' passed in
-
-	'''current_dateTime = dt.datetime.now()
-	print("\nCurrent Time:", current_time)
-	delivery_date = datetime.date.today() + datetime.timedelta(days=1)
-	time_to_closure = dt.datetime.combine(delivery_date.date(), dt.time(10:30)) - current_dateTime
+	### Method allows for prediction from any day but needs 'delivery_date' as string passed in
+	deliveryDate = dt.datetime.strptime(delivery_date, "%Y-%m-%d")
+	current_dateTime = dt.datetime.now()
+	print("\nCurrent Time:", current_dateTime)
+	time_to_closure = dt.datetime.combine(deliveryDate.date(), dt.time(9,30)) - current_dateTime
 	days, seconds = time_to_closure.days, time_to_closure.seconds
 	hours = days * 24 + seconds // 3600
 	print("\nTime From Closure:", hours)
-	return time_From_closure'''
+	return hours
 	
 
 #### Attempts to weight the parameter predictions.
@@ -204,18 +192,8 @@ def weighting(pred_DofW, pred_Rest, time_pred_weight):
 #####################################################################################
 #############  				   		MAIN 		 						#############
 #####################################################################################
-def main():
-	start = dt.datetime.now()
+def main(DoW, company_id, restaurant_id, current_Orders, delivery_date):
 	cursor = get_connection()
-
-	### All of this should be retrieved from live DB for all companies that are set
-	delivery_date = dt.datetime.now() + dt.timedelta(days=1)
-	DoW = dt.datetime.date(delivery_date).weekday()		## Day of Week in sql 0-4, python 1-5
-	print("Day of the Week:", DoW)
-
-	company_id = 244
-	restaurant_id = 3
-	current_Orders = 32 #get_company_current_orders(cursor, company_id)
 
 	print("Getting specific company specific Day of Week order history...\n")
 	company_order_hisotry_DoW = get_company_orderHistory_on_specific_day(cursor, company_id, DoW)
@@ -232,10 +210,7 @@ def main():
 		predicted_orders_for_Restaurant[1] = False
 
 	print("Getting % Time Weighting...")
-	time_pred_weight = x_percent_orders(company_id, DoW-1, current_Orders)
+	time_pred_weight = x_percent_orders(company_id, DoW-1, current_Orders, delivery_date)
 
 	print("Weighting...\n")
 	weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant, time_pred_weight)
-	end = dt.datetime.now()
-	print(end-start)
-main()
