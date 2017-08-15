@@ -19,11 +19,11 @@ Send a POST request::
     curl -d "foo=bar&bin=baz" http://localhost
 """
 
-def myCustomCalculation(dow, cID, rID, cOR, y, m, d):
+def myCustomCalculation(cID, rID, cOR, y, m, d):
 	start = dt.datetime.now()
 	dat = dt.datetime(year = y, month = m, day = d)
 	print(dat)
-	PREDICTION = prediction.main(dow, cID, rID, cOR, dat)
+	PREDICTION = prediction.main(cID, rID, cOR, dat)
 	end = dt.datetime.now()
 	print("PREDICTION:", PREDICTION)
 	print("RUN TIME:", end-start)
@@ -49,7 +49,7 @@ class KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
 			return
 		
 		#example of query: 
-		#http://127.0.0.1?dow=3&cID=22&rID=23&cOR=12&year=2017&mon=8&day=16
+		#http://127.0.0.1?cID=22&rID=23&cOR=12&year=2017&mon=8&day=16
 		for param in str(self.path).replace('/', '').replace('?','').split('&'):
 			params[param.split('=')[0]] = int(param.split('=')[1])
 		print(params)
@@ -59,7 +59,6 @@ class KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
 		#just run the function here: 
 		self.wfile.write(
 			myCustomCalculation(
-				params['dow'], 
 				params['cID'], 
 				params['rID'], 
 				params['cOR'],

@@ -104,8 +104,6 @@ def order_time_percentage(daily_company_orders, percent):
 	total 	= daily_company_orders['dish_count'].sum()
 	val 	= percent * total
 
-	#print("total:", total, "| val:", val)
-
 	for i in range(length-1, -1, -1):
 		total -= daily_company_orders.iloc[i, 0]
 		if total <= val:
@@ -114,8 +112,3 @@ def order_time_percentage(daily_company_orders, percent):
 
 			tdelt = delivery_date - order_time
 			return tdelt
-
-
-#company_id = 117
-#createTable(company_id)
-

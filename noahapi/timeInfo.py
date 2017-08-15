@@ -71,22 +71,6 @@ def presentation(timeDF):
 
 	info = [[0.95, mu_95, std_D_95], [0.90, mu_90, std_D_90], [0.75, mu_75, std_D_75]]
 
-	'''x = np.linspace(-10, 50, 100)
-
-	plt.plot(x, mlab.normpdf(x, mu_95, std_D_95), color= 'r', label = "95%")
-	plt.plot(x, mlab.normpdf(x, mu_90, std_D_90), color= 'b', label = "90%")
-	plt.plot(x, mlab.normpdf(x, mu_75, std_D_75), color= 'g', label = "75%")
-
-	plt.xticks(np.arange(0, 50, 4))
-
-	plt.xlabel("Time before order closure")
-	plt.ylabel(" ")
-	plt.title("Normal Distribution for all companies Order % times")
-	plt.legend()
-	plt.grid(b=True, which='both')
-
-	plt.show()'''
-
 	return info
 
 ### Converts timeDeltas into an hours count and return list of hours
@@ -109,5 +93,3 @@ def convert_times(timeDF, col):
 def main():
 	df = read_in()
 	presentation(df)
-
-#main()
