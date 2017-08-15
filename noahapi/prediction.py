@@ -160,12 +160,11 @@ def x_percent_orders(company_id, DofW, currentOrders, delivery_date):
 def time_From_closure(delivery_date):
 
 	### Method allows for prediction from any day but needs 'delivery_date' as string passed in
-	deliveryDate = dt.datetime.strptime(delivery_date, "%Y-%m-%d")
 	current_dateTime = dt.datetime.now()
 	print("\nCurrent Time:", current_dateTime)
-	time_to_closure = dt.datetime.combine(deliveryDate.date(), dt.time(9,30)) - current_dateTime
+	time_to_closure = dt.datetime.combine(delivery_date.date(), dt.time(9,50)) - current_dateTime
 	days, seconds = time_to_closure.days, time_to_closure.seconds
-	hours = days * 24 + seconds // 3600
+	hours = (days * 24) + round((seconds / 3600), 2)
 	print("\nTime From Closure:", hours)
 	return hours
 	
@@ -185,9 +184,9 @@ def weighting(pred_DofW, pred_Rest, time_pred_weight):
 		weighted_prediction = ((pred_DofW[0]*w_D)+(time_pred_weight[0]*w_T))/(w_D+w_T)
 	else:
 		weighted_prediction = time_pred_weight[0]
-	print("Final weighted prediction is:")
-	print(weighted_prediction)
-
+	#print("Final weighted prediction is:")
+	#print(weighted_prediction)
+	return weighted_prediction
 
 #####################################################################################
 #############  				   		MAIN 		 						#############
@@ -213,4 +212,5 @@ def main(DoW, company_id, restaurant_id, current_Orders, delivery_date):
 	time_pred_weight = x_percent_orders(company_id, DoW-1, current_Orders, delivery_date)
 
 	print("Weighting...\n")
-	weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant, time_pred_weight)
+	PREDICTION = weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant, time_pred_weight)
+	return PREDICTION
