@@ -22,11 +22,11 @@ Send a POST request::
 def myCustomCalculation(cID, rID, cOR, y, m, d):
 	start = dt.datetime.now()
 	dat = dt.datetime(year = y, month = m, day = d)
-	print(dat)
+	print("Delivery Date:", dat, '\n')
 	PREDICTION = prediction.main(cID, rID, cOR, dat)
 	end = dt.datetime.now()
-	print("PREDICTION:", PREDICTION)
-	print("RUN TIME:", end-start)
+	print("\nPREDICTION:", PREDICTION)
+	print("\nRUN TIME:", end-start, "\n=======================================================")
 	return PREDICTION
 
 
@@ -35,7 +35,7 @@ def myCustomCalculation(cID, rID, cOR, y, m, d):
 	
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import os
-print('aa')
+
 #Create custom HTTPRequestHandler class
 class KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
 	def do_GET(self):
@@ -52,6 +52,7 @@ class KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
 		#http://127.0.0.1?cID=22&rID=23&cOR=12&year=2017&mon=8&day=16
 		for param in str(self.path).replace('/', '').replace('?','').split('&'):
 			params[param.split('=')[0]] = int(param.split('=')[1])
+		print("\nPassed in Params:")
 		print(params)
 		#You have now the variables in the format params['dow'] = 3, params['cID'] = 22, params['rID'] = 23
 		
