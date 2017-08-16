@@ -26,7 +26,7 @@ COPY ./timeInfo.py /home/timeInfo.py
 COPY ./timePrediction.py /home/timePrediction.py
 
 EXPOSE 8080
-CMD ["python", "/home/script.py"]
+CMD python "/home/script.py"
 
 #Once done, try it out with http://192.168.99.100:8080/?dow=3&cID=22&rID=23&cOR=12&year=2017&mon=8&day=16
 # or replace the IP address with the container IP
