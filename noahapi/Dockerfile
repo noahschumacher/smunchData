@@ -1,4 +1,5 @@
 #to build, do:
+#first, navigate to the repository of this very Docker file, then run
 #docker build -t noahapi .
 
 #To run:
