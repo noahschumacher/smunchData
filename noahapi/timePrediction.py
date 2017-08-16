@@ -8,19 +8,6 @@ import numpy as np
 import datetime as dt
 import timeInfo
 
-#####################################################################################
-#############	  			CONNECT TO SMUNCH DB   						#############
-#####################################################################################
-def get_connections():
-	try:
-		connection = psycopg2.connect(
-			"dbname='smunch_development_pricing' user='nschumacher' host='localhost' password='12' port='5432'")
-		connection.autocommit = True
-		cursor = connection.cursor()
-	except:
-		print("Did not connect to database")
-	return cursor
-
 
 #####################################################################################
 #############	  				SQL QUERIES  							#############
@@ -59,8 +46,7 @@ def fixSeries(ss):
 
 #### Given company cycles through Monday-Friday and finds avg, std, and plots time 
 #### from closing for x% or orders to be placed.
-def createTable(company_id, DofW):
-	cursor =  get_connections()
+def createTable(company_id, DofW, cursor):
 
 	print("Day Of Week:", DofW)
 

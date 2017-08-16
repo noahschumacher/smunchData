@@ -123,9 +123,9 @@ def predict_orders_vs_param(orders):
 	return prediction
 
 #### The x% of orders time prediction, weighting
-def x_percent_orders(company_id, DofW, currentOrders, delivery_date):
+def x_percent_orders(company_id, DofW, currentOrders, delivery_date, cursor):
 	### info = [[.95, mu_95, std_95], [.90, mu_90, std_90]...]
-	info = timePrediction.createTable(company_id, DofW)
+	info = timePrediction.createTable(company_id, DofW, cursor)
 
 	time_to_closure = time_From_closure(delivery_date)
 
@@ -217,7 +217,7 @@ def main(company_id, restaurant_id, current_Orders, delivery_date):
 		predicted_orders_for_Restaurant[1] = False
 
 	print("Getting % Time Weighting...")
-	time_pred_weight = x_percent_orders(company_id, DoW, current_Orders, delivery_date)
+	time_pred_weight = x_percent_orders(company_id, DoW, current_Orders, delivery_date, cursor)
 
 	print("Weighting...\n")
 	PREDICTION = weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant, time_pred_weight)

@@ -45,7 +45,7 @@ cityFrame = DataFrame(cityPop)
 frame = pd.read_clipboard()
 
 # Creating dataframe
-dframe = DataFrame(randn(25).reshape((5,5)), index=['A','B','D','E','F'], columns = ['col1','col2','col3','col4','col5']
+dframe = DataFrame(randn(25).reshape((5,5)), index=['A','B','D','E','F'], columns = ['col1','col2','col3','col4','col5'])
 
 
 # Website Ref: http://pandas.pydata.org/pandas-docs/dev/generated.pandas.DataFrame.html
