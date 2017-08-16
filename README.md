@@ -1,4 +1,4 @@
-# smunchData
+# smunchData OUT OF DATE
 This directory contains all work done during the summer of 2017 at Smunch internship
 
 Each directory contains different approaches to predictions and gathering information.

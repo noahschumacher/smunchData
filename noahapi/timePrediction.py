@@ -8,19 +8,6 @@ import numpy as np
 import datetime as dt
 import timeInfo
 
-#####################################################################################
-#############	  			CONNECT TO SMUNCH DB   						#############
-#####################################################################################
-def get_connections():
-	try:
-		connection = psycopg2.connect(
-			"dbname='smunch_development_pricing' user='nschumacher' host='localhost' password='12' port='5432'")
-		connection.autocommit = True
-		cursor = connection.cursor()
-	except:
-		print("Did not connect to database")
-	return cursor
-
 
 #####################################################################################
 #############	  				SQL QUERIES  							#############
@@ -59,8 +46,7 @@ def fixSeries(ss):
 
 #### Given company cycles through Monday-Friday and finds avg, std, and plots time 
 #### from closing for x% or orders to be placed.
-def createTable(company_id, DofW):
-	cursor =  get_connections()
+def createTable(company_id, DofW, cursor):
 
 	print("Day Of Week:", DofW)
 
@@ -104,8 +90,6 @@ def order_time_percentage(daily_company_orders, percent):
 	total 	= daily_company_orders['dish_count'].sum()
 	val 	= percent * total
 
-	#print("total:", total, "| val:", val)
-
 	for i in range(length-1, -1, -1):
 		total -= daily_company_orders.iloc[i, 0]
 		if total <= val:
@@ -114,8 +98,3 @@ def order_time_percentage(daily_company_orders, percent):
 
 			tdelt = delivery_date - order_time
 			return tdelt
-
-
-#company_id = 117
-#createTable(company_id)
-
