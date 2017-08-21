@@ -6,7 +6,7 @@
 #############	  					NOTES		  						#############
 #####################################################################################
 ''' Currently this file is a single run file so I did write it with the intention
-of making a it a minimal memory, cpu load file. In the future is this is delpoyed on
+of making a it a minimal memory, cpu load file. In the future is this is deployed on
 the website it should be modified with smarter logic as to mitigate the extensive
 quarries and looping done to complete. It is also not scalable currently. By that I
 mean the period of time we are taking into account is manually set; so are the lines

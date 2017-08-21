@@ -2,7 +2,9 @@
 # Number of active users in x previous days
 # 
 
-## UNUSEFULL DATA!!!!!!!!!!!!!!!!!!!!!!
+##########################################################
+## !!!!!!!!!!!!!!!   UNUSEFULL DATA   !!!!!!!!!!!!!!!!!!!!
+
 # Inherent nature of graph is flawed for company model
 
 
