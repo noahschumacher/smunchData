@@ -1,15 +1,45 @@
-# smunchData OUT OF DATE
-This directory contains all work done during the summer of 2017 at Smunch internship
+# Smunch Data Analysis and Forecasting
 
-Each directory contains different approaches to predictions and gathering information.
-csvPredictions was the initial work when only the master csv file that has been manually 
-entered was avaliable for use. It served well in allowing me to generate my alogrith 
-and test it on basic data. 
-The dbPredictions is the transition from the csv file to the
-locally running postgreSQL smunch database. This served to make query's much more efficient 
-but also precise. In this directory the same prediction alogirthm is in place as long as a 
-more general format for including new paramters such as a time dependence.
-The gui_qtApp directory is exactly that. An incomplete framework for a native Desktop app.
-I was initially building this because I was unsure if I was going to have time to implement
-my predictions on the server before I left. It was also helpful in creating a format for 
-displaying and working with the predictions. 
+## Getting Started
+
+These instructions will detail the contents of this project and and its purpose. It will also explain the methodology behind some of the key files and give instructions to get running locally.
+
+### Overview
+
+This project contains several seperate aspects. Folders:  
+* noahapi - Docker Image predicts amount of orders on any given day for a given company. (most important)
+* cohorts - Contains two files that produce the retention rate and activity cohorts table
+* csvPredictions - Initial trails of predictive alogrithm using the Smunch master excel sheet (no database query, messy)
+* dbPredictions - Predictive files moving to database query, cleaned up and now contains time correction.
+* gui_qtApp - Contains attempt at making locally running Desktop UI for predictions. (Started when pruduction to website seemed unsure)
+* queries - Contains single run files that query the database (simple information).
+
+A detailed description of the logic behind the prediction is in the overview.pdf file. This was a continuesly updated file that served as a journal for my work. Aplogies for any spelling errors and lack of consistent direction in writing. It was a not an edited file but more free flow thinking jotted down. 
+
+### Dependencies
+Everything one needs to have in order to run files locally. 
+Python Libraries:
+* pandas - For data anlysis
+* numpy - For data analysis
+* matplotlib - For presentation
+* psycopg2 - For connecting to and querying database
+
+All of these are contained in anaconda.
+
+Other:
+* Docker
+* postgreSQL
+
+
+## Authors
+
+* **Noah Schumacher** - *Author* - [Noah Schumacher](https://github.com/noahschumacher)
+* **Cyrille Gattiker** - *API / Docker help* - [Cyrille Gattiker](https://bitbucket.org/cyrille-88motors/)
+
+
+
+## Acknowledgments
+
+* Advice and collaboration with [Torsten Wetzell](https://github.com/twetzel) (Smunch wed developer)
+
+
