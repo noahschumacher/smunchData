@@ -3,6 +3,7 @@
 import sys
 import prediction
 import datetime as dt
+import cProfile
 #from imp import reload 
 #reload(sys)  
 #sys.setdefaultencoding('utf8')
@@ -86,8 +87,8 @@ class KodeFunHTTPRequestHandler(BaseHTTPRequestHandler):
 			rID_total_orders[i['rID']] += i['prediction']
 		print("\nRestaurant Aggregated:", rID_total_orders, "\n")
 
-		self.wfile.write(
-			bytes((rID_total_orders), "utf-8"))
+		'''self.wfile.write(
+			bytes((rID_total_orders), "utf-8"))'''
 
 		####################################################################################
 
@@ -124,7 +125,10 @@ def run():
 	httpd.serve_forever()
   
 if __name__ == '__main__':
+	#cProfile.run('run()')
 	run()
+
+
 
 '''
 cID=117&rID=3&cOR=14&year=2017&mon=8&day=23&
