@@ -14,12 +14,12 @@ This project contains several seperate aspects. Folders:
 * gui_qtApp - Contains attempt at making locally running Desktop UI for predictions. (Started when pruduction to website seemed unsure)
 * queries - Contains single run files that query the database (simple information).
 
-A detailed description of the logic behind the prediction is in the overview.pdf file. This was a continuesly updated file that served as a journal for my work. Aplogies for any spelling errors and lack of consistent direction in writing. It was a not an edited file but more free flow thinking jotted down. 
+A detailed description of the logic behind the prediction is in the overview.pdf file. This was a continuesly updated file that served as a journal for my work (written in latex). Aplogies for any spelling errors and lack of consistent direction in writing. It was a not an edited file but more free flow thinking jotted down. 
 
 ### Dependencies
 Everything one needs to have in order to run files locally. 
 Python Libraries:
-* pandas - For data anlysis
+* pandas - For data analysis
 * numpy - For data analysis
 * matplotlib - For presentation
 * psycopg2 - For connecting to and querying database
