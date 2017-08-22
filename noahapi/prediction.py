@@ -134,10 +134,10 @@ def x_percent_orders(company_id, DofW, currentOrders, delivery_date, cursor):
 	for i in range(3):
 		timeDif.append(round(abs(time_to_closure - info[i][1]), 2))
 
-	print("\ntimeDif:", timeDif)
+	#print("\ntimeDif:", timeDif)
 
 	min_index = timeDif.index(min(timeDif))
-	print("Min Index:", min_index)
+	#print("Min Index:", min_index)
 
 	timeDif = []
 	for i in range(3):
@@ -160,14 +160,14 @@ def time_From_closure(delivery_date):
 
 	### Method allows for prediction from any day but needs 'delivery_date' as string passed in
 	current_dateTime = dt.datetime.now()
-	print("\nCurrent Time:", current_dateTime)
+	#print("\nCurrent Time:", current_dateTime)
 	time_to_closure = dt.datetime.combine(delivery_date.date(), dt.time(9,50)) - current_dateTime
 	days, seconds = time_to_closure.days, time_to_closure.seconds
 	hours = (days * 24) + round((seconds / 3600), 3)
 	if hours <= 0:
-		print("IN PAST!!")
+		#print("IN PAST!!")
 		return 1000000
-	print("\nTime From Closure:", hours)
+	#print("\nTime From Closure:", hours)
 	return hours
 	
 
@@ -190,7 +190,7 @@ def weighting(pred_DofW, pred_Rest, time_pred_weight):
 	else:
 		weighted_prediction = time_pred_weight[0]
 
-	return weighted_prediction
+	return round(weighted_prediction, 3)
 
 #####################################################################################
 #############  				   		MAIN 		 						#############
@@ -199,9 +199,8 @@ def main(company_id, restaurant_id, current_Orders, delivery_date):
 	cursor = get_connection()
 	DoW = delivery_date.weekday()
 
-	#print("Getting specific company specific Day of Week order history...\n")
 	company_order_hisotry_DoW = get_company_orderHistory_on_specific_day(cursor, company_id, DoW+1)
-	print("PREDICTING from DAYOFWEEK...\n------------------------")
+	print("PREDICTING from DAYOFWEEK...\n---------------------------------")
 	predicted_orders_for_DoW = orders_on_param_from_company(company_order_hisotry_DoW)
 	if predicted_orders_for_DoW[0] == 0:
 		print("NEVER ORDERED ON THIS DOW")
@@ -209,17 +208,15 @@ def main(company_id, restaurant_id, current_Orders, delivery_date):
 	elif predicted_orders_for_DoW[0] <= current_Orders - (current_Orders*.15):
 		predicted_orders_for_DoW[1] = False
 
-	#print("Getting specific company specific restaurant order history...\n")
 	company_order_history_Restaurant = get_company_orderHistory_from_restaurant(cursor, company_id, restaurant_id)
-	print("PREDICTING from RESTAURANT...\n------------------------")
+	print("PREDICTING from RESTAURANT...\n---------------------------------")
 	predicted_orders_for_Restaurant = orders_on_param_from_company(company_order_history_Restaurant)
-	print()
 	if predicted_orders_for_Restaurant[0] <= current_Orders + (current_Orders*.15):
 		predicted_orders_for_Restaurant[1] = False
 
-	print("PREDICTING from TIME...\n------------------------")
+	print("PREDICTING from TIME...\n---------------------------------")
 	time_pred_weight = x_percent_orders(company_id, DoW, current_Orders, delivery_date, cursor)
 
-	print("\nWEIGHTING ALL PARAMETERS...\n")
+	print("\nWEIGHTING ALL PARAMETERS...\n---------------------------------")
 	PREDICTION = weighting(predicted_orders_for_DoW, predicted_orders_for_Restaurant, time_pred_weight)
 	return PREDICTION

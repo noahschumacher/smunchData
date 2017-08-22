@@ -65,9 +65,9 @@ def presentation(timeDF):
 	variance_90 = round(std_D_90**2,3)
 	variance_75 = round(std_D_75**2,3)
 
-	print("Mu_95:", mu_95, " | Std_D_95:", std_D_95, " | variance_95:", variance_95)
-	print("Mu_90:", mu_90, " | Std_D_90:", std_D_90, " | variance_90:", variance_90)
-	print("Mu_75:", mu_75, " | Std_D_75:", std_D_75, " | variance_75:", variance_75)
+	#print("Mu_95:", mu_95, " | Std_D_95:", std_D_95, " | variance_95:", variance_95)
+	#print("Mu_90:", mu_90, " | Std_D_90:", std_D_90, " | variance_90:", variance_90)
+	#print("Mu_75:", mu_75, " | Std_D_75:", std_D_75, " | variance_75:", variance_75)
 
 	info = [[0.95, mu_95, std_D_95], [0.90, mu_90, std_D_90], [0.75, mu_75, std_D_75]]
 

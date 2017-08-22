@@ -7,6 +7,7 @@ from pandas import Series, DataFrame
 import numpy as np
 import timeForCompany
 import datetime as dt
+import cProfile
 
 
 #####################################################################################
@@ -239,3 +240,10 @@ def main():
 	end = dt.datetime.now()
 	print(end-start)
 main()
+#cProfile.run('main()')
+
+
+
+
+
+

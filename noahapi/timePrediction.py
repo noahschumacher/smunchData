@@ -48,7 +48,7 @@ def fixSeries(ss):
 #### from closing for x% or orders to be placed.
 def createTable(company_id, DofW, cursor):
 
-	print("Day Of Week:", DofW)
+	#print("Day Of Week:", DofW)
 
 	company_times_95 = []	#### List of time deltas for company
 	company_times_90 = []
